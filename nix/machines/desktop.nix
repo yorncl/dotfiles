@@ -83,11 +83,18 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # nix
+    home-manager
 
     # apps
     alacritty
     fzf
     kitty
+    obsidian
+    zathura
+    anki-bin
+    fuzzel
+    swaylock
 
     # display manager
     ly
@@ -123,6 +130,10 @@
   programs.firefox = {
     enable = true;
   };
+
+  programs.thunar = {
+    enable = true;
+  }
 
   programs.tmux = {
     enable = true;

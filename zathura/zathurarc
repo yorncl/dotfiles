@@ -1,0 +1,21 @@
+map <C-I> recolor
+
+map <A-b> feedkeys ":blist"<Return>
+
+# Write
+map <A-A> feedkeys ":bmark a"<Return>
+map <A-S> feedkeys ":bmark s"<Return>
+map <A-D> feedkeys ":bmark d"<Return>
+map <A-F> feedkeys ":bmark f"<Return>
+
+# Read
+map <A-a> feedkeys ":blist a"<Return>
+map <A-s> feedkeys ":blist s"<Return>
+map <A-d> feedkeys ":blist d"<Return>
+map <A-f> feedkeys ":blist f"<Return>
+
+# New instance (use it as new tab, flemme d'installer tabbed)
+map <C-t> feedkeys ":exec zathura $FILE"<Return>
+
+set selection-clipboard clipboard
+

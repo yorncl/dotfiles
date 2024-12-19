@@ -1,0 +1,28 @@
+[colors.primary]
+background = "#000000"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 7
+
+[font.bold]
+family = "DejaVu Sans Mono"
+style = "Bold"
+
+[font.bold_italic]
+family = "DejaVu Sans Mono"
+style = "Bold Italic"
+
+[font.italic]
+family = "DejaVu Sans Mono"
+style = "Italic"
+
+[font.normal]
+family = "DejaVu Sans Mono"
+style = "Regular"
+
+[window]
+opacity = 1
+startup_mode = "Windowed"
