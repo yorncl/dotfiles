@@ -9,7 +9,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager... }@inputs:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       inherit (self) outputs;
     in {
@@ -18,12 +18,11 @@
           yrnNixDesktop = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
-              machines/desktop.nix,
+              ./machines/desktop.nix
               home-manager.nixosModules.home-manager {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
 
-                # TODO replace ryan with your own username
                 home-manager.users.yrn = import ./home-manager/home.nix;
 
                 # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
