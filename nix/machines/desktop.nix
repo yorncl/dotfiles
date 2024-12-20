@@ -133,36 +133,36 @@
 
   programs.thunar = {
     enable = true;
-  }
+  };
 
   programs.tmux = {
     enable = true;
-    extraConfig = ''
-      set-window-option -g mode-keys vi
+    #extraConfig = ''
+    #  set-window-option -g mode-keys vi
 
-      set -g prefix C-a
-      unbind C-b
-
-
-      bind -r C-k resize-pane -U
-      bind -r C-j resize-pane -D
-      bind -r C-h resize-pane -L
-      bind -r C-l resize-pane -R
-
-      bind-key -n M-k select-pane -U
-      bind-key -n M-j select-pane -D
-      bind-key -n M-h select-pane -L
-      bind-key -n M-l select-pane -R
+    #  set -g prefix C-a
+    #  unbind C-b
 
 
-      bind-key -n M-H previous-window
-      bind-key -n M-L next-window
+    #  bind -r C-k resize-pane -U
+    #  bind -r C-j resize-pane -D
+    #  bind -r C-h resize-pane -L
+    #  bind -r C-l resize-pane -R
 
-      set -g mouse
+    #  bind-key -n M-k select-pane -U
+    #  bind-key -n M-j select-pane -D
+    #  bind-key -n M-h select-pane -L
+    #  bind-key -n M-l select-pane -R
 
-      set -g default-terminal "tmux-256color"
-      set -ag terminal-overrides ",xterm-256color:RGB"
-    '';
+
+    #  bind-key -n M-H previous-window
+    #  bind-key -n M-L next-window
+
+    #  set -g mouse
+
+    #  set -g default-terminal "tmux-256color"
+    #  set -ag terminal-overrides ",xterm-256color:RGB"
+    #'';
   };
 
   programs.neovim = {

@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
-
+let
+    lns = config.lib.file.mkOutOfStoreSymlink;
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -22,16 +24,12 @@
 
   # Dotfiles
   # mainly using symlinks, maybe I will migrate someday
-  let
-    lns = config.lib.mkOutOfStoreSymlink;
-  in  {
-    home.file.".config/nvim/" = lns ../../nvim
-    home.file.".config/tmux/" = lns ../../tmux
-    home.file.".config/mpv/" = lns ../../mpv
-    home.file.".config/zathura/" = lns ../../mpv
-    home.file.".config/hypr/" = lns ../../mpv
-    home.file.".config/flameshot/" = lns ../../mpv
-  }
+  home.file.".config/nvim" = {source = lns ../../nvim;};
+  home.file.".config/tmux" = {source = lns ../../tmux;};
+  home.file.".config/mpv" = {source = lns ../../mpv;};
+  home.file.".config/zathura" = {source = lns ../../zathura;};
+  home.file.".config/hypr" = {source = lns ../../hypr;};
+  home.file.".config/flameshot" = {source = lns ../../flameshot;};
 
   home.sessionVariables = {
     EDITOR = "vim";
