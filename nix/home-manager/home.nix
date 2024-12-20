@@ -37,4 +37,12 @@ in
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  programs.zsh.enable = true;
+  programs.zsh.prezto.enable = true;
+
+  programs.fzf = {
+	  enable = true;
+	  enableZshIntegration = true;
+  };
 }

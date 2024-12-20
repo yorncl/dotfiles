@@ -88,7 +88,6 @@
 
     # apps
     alacritty
-    fzf
     kitty
     obsidian
     zathura
