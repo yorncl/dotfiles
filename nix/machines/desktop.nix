@@ -1,4 +1,4 @@
-{    config, pkgs, ... }:
+{    config, pkgs, lib, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -6,12 +6,10 @@
     ];
 
   # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
 
   #networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -19,6 +17,10 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -41,24 +43,25 @@
     LC_TIME = "fr_FR.UTF-8";
   };
 
-  services.xserver = {
-   enable = true;
-   autoRepeatDelay = 190;
-   autoRepeatInterval = 30;
-   windowManager.i3 = {
-     enable = true;
-     extraPackages = with pkgs; [
-        rofi
-        i3status
-        i3lock
-        i3blocks
-      ];
-    };
-  };
+  ##services.xserver = {
+  ## enable = true;
+  ## autoRepeatDelay = 190;
+  ## autoRepeatInterval = 30;
+  ## windowManager.i3 = {
+  ##   enable = true;
+  ##   extraPackages = with pkgs; [
+  ##      rofi
+  ##      i3status
+  ##      i3lock
+  ##      i3blocks
+  ##    ];
+  ##  };
+  ##};
 
-  #services.displayManager = {
-  #  defaultSession = "none+i3";
-  #};
+  # services.displayManager.sddm = {
+  #   enable = true;
+  #   wayland.enable = true;
+  # };
 
   services.displayManager.ly.enable = true;
 
@@ -94,6 +97,15 @@
     anki-bin
     fuzzel
     swaylock
+    htop
+    ripgrep
+    neofetch
+    file
+    mpv
+
+    #kde stuff
+    kdePackages.dolphin
+    kdePackages.gwenview
 
     # display manager
     ly
@@ -118,6 +130,7 @@
     virtualbox
   ];
 
+
   programs.hyprland = {
     enable = true;
   };
@@ -127,10 +140,6 @@
   };
 
   programs.firefox = {
-    enable = true;
-  };
-
-  programs.thunar = {
     enable = true;
   };
 
@@ -179,6 +188,15 @@
     fuzzyCompletion = true;
   };
 
+  stylix = {
+    enable = true;
+    image = ../../wallpaper/buddha.jpg;
+    polarity = "dark";
+  };
+
+
+  fonts.packages = [ ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -204,6 +222,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "24.11"; # Did you read the comment?
 
 }
