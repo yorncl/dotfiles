@@ -103,6 +103,11 @@
     file
     mpv
 
+    # taking screenshots shouldn't be this invovled
+    grim
+    slurp # eww gross
+    satty
+
     #kde stuff
     kdePackages.dolphin
     kdePackages.gwenview
@@ -112,6 +117,7 @@
 
     # de
     hyprpaper
+    hyprpicker
     waybar
     wofi
 
@@ -124,6 +130,8 @@
     python3
     nodejs
     git
+    nasm
+    libguestfs-with-appliance
 
     # virtualization
     qemu
