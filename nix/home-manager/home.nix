@@ -33,6 +33,10 @@ in
   #   };
   # };
 
+  services.syncthing = {
+    enable = true;
+  };
+
   # Dotfiles
   # mainly using symlinks, maybe I will migrate someday
   home.file.".config/nvim" = {source = lns "${dotfiles}/nvim";};
@@ -107,7 +111,6 @@ in
 	  enableZshIntegration = true;
   };
 
-  
   programs.waybar = {
     enable = true;
     systemd.enable = true;
@@ -198,6 +201,11 @@ in
       #pulseaudio.muted {
         background-color: @base02;
       }
+
+      #backlight {
+        background-color: @base0C;
+        color: @base00;
+      }
     '';
     settings = {
       mainBar = {
@@ -216,6 +224,7 @@ in
           "memory"
           "network"
           "pulseaudio"
+          "backlight"
           "battery"
           "tray"
         ];
@@ -255,6 +264,10 @@ in
           format = "VOL {volume}%";
           format-muted = "MUTE";
           on-click = "pavucontrol";
+        };
+        "backlight" = {
+          format = "BRI {percent}%";
+          device = "intel_backlight";
         };
       };
     };

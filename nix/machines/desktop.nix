@@ -95,6 +95,7 @@
     obsidian
     zathura
     anki-bin
+    xorg.libxshmfence # needed for anki
     fuzzel
     swaylock
     htop
