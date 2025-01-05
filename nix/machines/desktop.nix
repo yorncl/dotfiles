@@ -8,6 +8,8 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  # TODO temporary, should remove
+  boot.loader.timeout = 0;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -133,12 +135,16 @@
     git
     nasm
     libguestfs-with-appliance
+    grub2
+    unzip
 
     # virtualization
     qemu
     virtualbox
   ];
 
+
+  programs.nix-ld.enable = true;
 
   programs.hyprland = {
     enable = true;
