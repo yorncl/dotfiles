@@ -156,6 +156,11 @@
 
   programs.firefox = {
     enable = true;
+    policies = {
+        Extensions = {
+          Locked = [ "leechblockng@proginosko.com" ];
+        };
+    };
   };
 
   programs.tmux = {
