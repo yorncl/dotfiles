@@ -14,7 +14,6 @@
     let
       inherit (self) outputs;
     in {
-
         nixosConfigurations = {
           yrnNixDesktop = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";

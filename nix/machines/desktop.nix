@@ -8,8 +8,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  # TODO temporary, should remove
-  boot.loader.timeout = 0;
+  boot.loader.timeout = 1;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -45,34 +44,8 @@
     LC_TIME = "fr_FR.UTF-8";
   };
 
-  ##services.xserver = {
-  ## enable = true;
-  ## autoRepeatDelay = 190;
-  ## autoRepeatInterval = 30;
-  ## windowManager.i3 = {
-  ##   enable = true;
-  ##   extraPackages = with pkgs; [
-  ##      rofi
-  ##      i3status
-  ##      i3lock
-  ##      i3blocks
-  ##    ];
-  ##  };
-  ##};
-
-  # services.displayManager.sddm = {
-  #   enable = true;
-  #   wayland.enable = true;
-  # };
 
   services.displayManager.ly.enable = true;
-
-
-  ## Configure keymap in X11
-  #services.xserver.xkb = {
-  #  layout = "us";
-  #  variant = "";
-  #};
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.yrn = {
@@ -105,15 +78,31 @@
     neofetch
     file
     mpv
+    ffmpeg-full
+    pomodoro-gtk
+    brave
+    pinta
+    vscode
+    aseprite
+    blender
 
     # taking screenshots shouldn't be this invovled
     grim
     slurp # eww gross
     satty
 
-    #kde stuff
+    #DE stuff
     kdePackages.dolphin
     kdePackages.gwenview
+    wl-clipboard
+    
+    # terminal file manager + dep for showing images in child windows (necessary because I use alacritty)
+    yazi
+    ueberzugpp
+
+    # image viewer
+    imv
+
 
     # display manager
     ly
@@ -123,10 +112,19 @@
     hyprpicker
     waybar
     wofi
-
-    # dev
+  
+    # dev TODO move to dev flakes ?
     rustup
-    pkgs.llvmPackages_14.libcxxClang
+
+    clang
+    libcxx
+
+    xorg.libX11
+
+    gcc
+    libgcc
+
+    # utils
     cmake
     gnumake
     pipenv
@@ -137,12 +135,13 @@
     libguestfs-with-appliance
     grub2
     unzip
-
+    linux-manual man-pages man-pages-posix
     # virtualization
     qemu
     virtualbox
   ];
 
+  documentation.man.generateCaches = false;
 
   programs.nix-ld.enable = true;
 
@@ -154,14 +153,6 @@
     enable = true;
   };
 
-  programs.firefox = {
-    enable = true;
-    policies = {
-        Extensions = {
-          Locked = [ "leechblockng@proginosko.com" ];
-        };
-    };
-  };
 
   programs.tmux = {
     enable = true;
@@ -235,6 +226,49 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  programs.firefox = {
+    enable = true;
+    policies = {
+        Extensions = {
+          Locked = [ "leechblockng@proginosko.com" ];
+        };
+    };
+  };
+
+
+  environment.etc."brave/policies/managed/brave.json".text = builtins.toJSON {
+  ExtensionInstallForcelist = [
+    "blaaajhemilngeeffpbfkdjjoefldkok;https://clients2.google.com/service/update2/crx"
+    "fllfmdjhnhhjokhdifhcdbpbfajfnhon;https://clients2.google.com/service/update2/crx"
+    "odfaaonbinobeomfaaepmjjhodelkkke;https://clients2.google.com/service/update2/crx"
+  ];
+    ExtensionSettings = {
+      blaaajhemilngeeffpbfkdjjoefldkok = {
+        installation_mode = "force_installed";
+      };
+      fllfmdjhnhhjokhdifhcdbpbfajfnhon = {
+        installation_mode = "force_installed";
+      };
+    };
+    #IncognitoModeAvailability = 1;
+};
+
+  #services.resolved.enable = false;
+
+  networking = {
+    nameservers = [ "1.1.1.3" "1.0.0.3" ];  # Cloudflare DNS servers
+    #resolvconf.enable = false;  # Disable resolvconf
+    #dhcpcd.extraConfig = "nohook resolv.conf";  # Prevent dhcpcd from updating resolv.conf
+    };
+
+networking.networkmanager = {
+      dns = "none";  # Prevent NetworkManager from managing DNS
+};
+
+
+
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

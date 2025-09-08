@@ -20,9 +20,10 @@ in
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
-    pkgs.discord
-    pkgs.spotify
+  home.packages = with pkgs; [
+    whatsapp-for-linux
+    discord
+    spotify
   ];
 
   # services.flameshot = {
